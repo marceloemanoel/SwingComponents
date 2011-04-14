@@ -63,7 +63,7 @@ public class AnnotationTableModel<Row> extends AbstractTableModel {
 	}
 
 	public void addAll(List<Row> lines) {
-		this.rows.addAll(lines);
+		rows.addAll(lines);
 		fireTableDataChanged();
 	}
 
@@ -73,6 +73,7 @@ public class AnnotationTableModel<Row> extends AbstractTableModel {
 	}
 
 	public Row remove(int lineIndex) {
+		ensureValidRow(lineIndex);
 		Row line = rows.remove(lineIndex);
 		fireTableDataChanged();
 		return line;
