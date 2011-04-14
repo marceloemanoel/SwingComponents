@@ -17,6 +17,7 @@ import br.com.smartcoders.components.swing.table.model.mapping.exception.Invalid
 public class AnnotationTableModel<Row> extends AbstractTableModel {
 
 	private static final String BLANK = "";
+	
 	private List<Row> rows;
 	private Map<Integer, ColumnMapping> mappings;
 
@@ -92,7 +93,13 @@ public class AnnotationTableModel<Row> extends AbstractTableModel {
 			throw new IndexOutOfBoundsException("The index, " + index + " ,should be 0 <= index < " + getRowCount());
 		}
 	}
+	
 
+	@Override
+	public boolean isCellEditable(int rowIndex, int columnIndex) {
+		return getColumnMapping(columnIndex).getColumn().editable();
+	}
+	
 	@Override
 	public int getColumnCount() {
 		return mappings.size();

@@ -12,4 +12,7 @@ public @interface Column {
 	int index();
 
 	String name();
+	
+	boolean editable() default false;
+	
 }
