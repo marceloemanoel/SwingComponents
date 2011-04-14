@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     13/04/2011 20:13:30                                                        
+
+     SwingComponents    
+     A set of swing components for easy use
+                   
+     marceloemanoel                                                                
+     ====================================================================== -->
+<project name="SwingComponents" default="dist">
+	<description>
+    	A set of swing components for easy use
+    </description>
+
+	<property file="build.properties" />
+
+	<target name="init">
+		<mkdir dir="${build}" />
+		<mkdir dir="${dist}" />
+		<mkdir dir="${doc}" />
+	</target>
+
+	<target name="clean">
+		<delete dir="${build}" />
+		<delete dir="${dist}" />
+		<delete dir="${doc}" />
+	</target>
+
+	<!-- ================================= 
+          target: default              
+         ================================= -->
+	<target name="dist" depends="jar" description="generate the distribution files">
+		<zip destfile="${dist}/${ant.project.name}-${ant.project.version.major}.${ant.project.version.minor}.zip">
+			<zipfileset dir="${dist}">
+				<include name="**.jar" />
+			</zipfileset>
+			<zipfileset prefix="doc" dir="${doc}" />
+		</zip>
+	</target>
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: depends                      
+         - - - - - - - - - - - - - - - - - -->
+	<target name="jar" depends="compile, doc">
+		<jar destfile="${dist}/${ant.project.name}-${ant.project.version.major}.${ant.project.version.minor}.jar" basedir="${build}">
+		</jar>
+	</target>
+
+	<target name="compile" depends="clean, init">
+		<javac srcdir="${src}" destdir="${build}">
+		</javac>
+	</target>
+
+	<target name="doc" depends="clean, init">
+		<javadoc author="false" access="public" destdir="${doc}">
+			<fileset dir="${src}">
+			</fileset>
+		</javadoc>
+	</target>
+
+</project>
